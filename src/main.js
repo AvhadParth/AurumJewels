@@ -84,40 +84,7 @@ function initAmbientParticles() {
 }
 initAmbientParticles();
 
-// 3. Custom Luxury Follower Cursor Engine
-function initCustomCursor() {
-  const dot = document.getElementById('cursor-dot');
-  const circle = document.getElementById('cursor-circle');
-  if (!dot || !circle || window.innerWidth < 768) return;
-
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let circleX = mouseX;
-  let circleY = mouseY;
-
-  window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-  }, { passive: true });
-
-  function renderCursor() {
-    circleX += (mouseX - circleX) * 0.18;
-    circleY += (mouseY - circleY) * 0.18;
-    circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
-    requestAnimationFrame(renderCursor);
-  }
-  renderCursor();
-
-  const hoverTargets = document.querySelectorAll('.hover-target, a, button, .tilt-card');
-  hoverTargets.forEach((target) => {
-    target.addEventListener('mouseenter', () => circle.classList.add('active'));
-    target.addEventListener('mouseleave', () => circle.classList.remove('active'));
-  });
-}
-initCustomCursor();
-
-// 4. Dynamic 3D Card Parallax Tilt Engine
+// 3. Dynamic 3D Card Parallax Tilt Engine
 function initCardTilt() {
   const tiltCards = document.querySelectorAll('.tilt-card');
 
@@ -142,7 +109,7 @@ function initCardTilt() {
 }
 initCardTilt();
 
-// 5. Animated Heritage Stat Counters
+// 4. Animated Heritage Stat Counters
 function initStatCounters() {
   const stats = [
     { id: 'stat-1', target: 180 },
@@ -174,7 +141,7 @@ function initStatCounters() {
 }
 initStatCounters();
 
-// 6. High-Performance Three.js WebGL Scene Setup
+// 5. High-Performance Three.js WebGL Scene Setup
 const canvas = document.getElementById('coin-canvas');
 
 const scene = new THREE.Scene();
@@ -207,7 +174,7 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.shadowMap.autoUpdate = false;
 
-// 7. Balanced Moderate Studio Lighting Engine
+// 6. Balanced Moderate Studio Lighting Engine
 const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffebd8, 2.0);
 scene.add(hemiLight);
 
@@ -231,7 +198,7 @@ const pointLight = new THREE.PointLight(0xffffff, 2.5, 20);
 pointLight.position.set(0, 1.5, 5);
 scene.add(pointLight);
 
-// 8. Generate Studio Environment Map for Moderate Metallic Reflections
+// 7. Generate Studio Environment Map for Moderate Metallic Reflections
 const pmremGenerator = new THREE.PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
@@ -247,7 +214,7 @@ envScene.add(envLight2);
 const envMap = pmremGenerator.fromScene(envScene).texture;
 scene.environment = envMap;
 
-// 9. Responsive Scale Logic
+// 8. Responsive Scale Logic
 function getResponsiveScale() {
   const w = window.innerWidth;
   if (w < 480) return 0.85;
@@ -359,7 +326,7 @@ function createFallbackRing() {
   ScrollTrigger.refresh();
 }
 
-// 10. Live Precious Metal Swatches Logic
+// 9. Live Precious Metal Swatches Logic
 let currentMetal = 'rose-gold';
 
 const metalConfig = {
@@ -414,7 +381,7 @@ function updateRingMetalAndCard() {
   if (buyBtnEl) buyBtnEl.textContent = `ACQUIRE NOW — ${formattedPrice}`;
 }
 
-// 11. GSAP ScrollTriggers: Consecutive 1:1 Linear Scroll Motion
+// 10. GSAP ScrollTriggers: Consecutive 1:1 Linear Scroll Motion
 function setupScrollAnimations() {
   const mainTL = gsap.timeline({
     scrollTrigger: {
@@ -479,7 +446,7 @@ function setupScrollAnimations() {
   });
 }
 
-// 12. Custom Glassmorphism Maison Toast Notification System
+// 11. Custom Glassmorphism Maison Toast Notification System
 function showMaisonToast(badge, title, message, icon = '❖') {
   const container = document.getElementById('maison-toast-container');
   if (!container) return;
@@ -519,7 +486,7 @@ function showMaisonToast(badge, title, message, icon = '❖') {
   setTimeout(closeToast, 3500);
 }
 
-// 13. Interactive Event Listeners & Custom Toast Triggers
+// 12. Interactive Event Listeners & Custom Toast Triggers
 const openConciergeBtn = document.getElementById('open-concierge');
 const heroBookBtn = document.getElementById('hero-book-btn');
 const closeConciergeBtn = document.getElementById('close-concierge');
@@ -587,7 +554,7 @@ if (newsletterForm) {
   });
 }
 
-// 14. Render Loop (Automatic continuous left-to-right turntable rotation & passive mouse parallax)
+// 13. Render Loop (Automatic continuous left-to-right turntable rotation & passive mouse parallax)
 let mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0;
 
 window.addEventListener('mousemove', (e) => {

@@ -50,43 +50,6 @@ body {
   z-index: 1;
 }
 
-/* Custom Luxury Follower Cursor */
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 6px;
-  height: 6px;
-  background: var(--accent-rose-dark);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease, background 0.3s ease;
-}
-
-.cursor-circle {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(196, 139, 120, 0.45);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease;
-  background: rgba(196, 139, 120, 0.04);
-  backdrop-filter: blur(1px);
-}
-
-.cursor-circle.active {
-  transform: translate(-50%, -50%) scale(1.6);
-  border-color: var(--accent-rose-dark);
-  background: rgba(196, 139, 120, 0.12);
-}
-
 /* Dynamic 3D Card Tilt Effect */
 .tilt-card {
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
@@ -993,48 +956,93 @@ body {
   box-shadow: 0 4px 15px rgba(196, 139, 120, 0.3);
 }
 
-/* Vogue & Press Testimonials Section */
+/* Redesigned Infinite Press Marquee Carousel */
 .testimonials-section {
-  padding: clamp(4rem, 8vh, 6rem) 2rem clamp(4rem, 8vh, 8rem);
-  max-width: 1250px;
-  margin: 0 auto;
+  padding: clamp(4rem, 8vh, 6rem) 0 clamp(4rem, 8vh, 8rem);
+  width: 100%;
+  overflow: hidden;
 }
 
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+.testimonials-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  padding: 1.5rem 0;
+}
+
+.testimonials-track {
+  display: flex;
   gap: 2rem;
+  width: max-content;
+  animation: infiniteScrollPress 30s linear infinite;
+  will-change: transform;
+}
+
+.testimonials-carousel-wrapper:hover .testimonials-track {
+  animation-play-state: paused;
+}
+
+@keyframes infiniteScrollPress {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 1rem));
+  }
 }
 
 .testimonial-card {
-  padding: 2.8rem 2.2rem;
+  width: 360px;
+  flex-shrink: 0;
+  padding: 2.4rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1.2rem;
   position: relative;
+}
+
+.quote-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: -0.5rem;
 }
 
 .quote-mark {
   font-family: var(--font-serif);
-  font-size: 4rem;
+  font-size: 3.5rem;
   line-height: 1;
   color: var(--accent-rose);
-  margin-bottom: -1rem;
+}
+
+.press-badge {
+  font-family: var(--font-light);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: var(--accent-rose-dark);
+  background: var(--accent-rose-glow);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border-rose);
+  text-transform: uppercase;
 }
 
 .quote-text {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
+  font-size: 1.18rem;
   font-weight: 300;
   font-style: italic;
-  line-height: 1.6;
+  line-height: 1.55;
   color: var(--text-dark);
 }
 
 .quote-author {
   font-family: var(--font-light);
-  font-size: 0.70rem;
+  font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.2em;
   color: var(--accent-rose-dark);
@@ -1516,9 +1524,6 @@ body {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
-  .testimonials-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .footer-main {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1597,8 +1602,9 @@ body {
   .sleek-drawer {
     padding: 3.5rem 1.8rem;
   }
-  .cursor-dot, .cursor-circle {
-    display: none;
+  .testimonial-card {
+    width: 300px;
+    padding: 2rem 1.5rem;
   }
 }
 
