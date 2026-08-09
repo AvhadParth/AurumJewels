@@ -103,6 +103,11 @@ function getResponsiveScale() {
   return 1.48;
 }
 
+// Helper to get exact top Y coordinate right below navbar
+function getTopStartY() {
+  return window.innerWidth < 768 ? 1.9 : 2.4;
+}
+
 // Load User's Custom ring.glb 3D Model with Perfect Pivot Alignment
 let ringGroup = new THREE.Group();
 scene.add(ringGroup);
@@ -145,8 +150,8 @@ loader.load(
     const targetScale = getResponsiveScale() / maxDim;
     model.scale.set(targetScale, targetScale, targetScale);
 
-    // Initial 3D ring position (Starts high at top of section)
-    const initialY = window.innerWidth < 768 ? 2.6 : 3.2;
+    // Initial 3D ring position (Starts perfectly visible at top of section right under navbar)
+    const initialY = getTopStartY();
     model.rotation.x = 0.3;
 
     ringGroup.add(model);
@@ -192,7 +197,7 @@ function createFallbackRing() {
   ringGroup.add(fallbackGem);
   ringMaterials.push(bandMat);
 
-  const initialY = window.innerWidth < 768 ? 2.6 : 3.2;
+  const initialY = getTopStartY();
   ringGroup.position.set(0, initialY, 0);
   ringGroup.rotation.set(0.3, 0, 0);
   renderer.shadowMap.needsUpdate = true;
@@ -271,7 +276,7 @@ function setupScrollAnimations() {
 
   const productPanel = document.getElementById('product-reveal-panel');
 
-  const startY = window.innerWidth < 768 ? 2.6 : 3.2;
+  const startY = getTopStartY();
   const targetY = window.innerWidth < 768 ? 1.25 : 1.42;
 
   ringGroup.position.set(0, startY, 0);
