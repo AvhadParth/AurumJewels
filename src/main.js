@@ -21,7 +21,7 @@ gsap.ticker.add((time) => {
 });
 gsap.ticker.lagSmoothing(0);
 
-// 2. Floating Ambient Gold Dust & Twinkling Diamond Star Particles Canvas
+// 2. Floating Ambient Gold Dust Particles Canvas
 function initAmbientParticles() {
   const pCanvas = document.getElementById('ambient-canvas');
   if (!pCanvas) return;
@@ -31,38 +31,19 @@ function initAmbientParticles() {
   let height = (pCanvas.height = window.innerHeight);
 
   const particles = [];
-  const particleCount = window.innerWidth < 768 ? 30 : 60;
+  const particleCount = window.innerWidth < 768 ? 24 : 45;
 
   for (let i = 0; i < particleCount; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 2.5 + 0.6,
-      color: Math.random() > 0.3 ? '#c48b78' : '#e6ca65',
-      alpha: Math.random() * 0.45 + 0.15,
+      radius: Math.random() * 2.2 + 0.6,
+      color: Math.random() > 0.4 ? '#c48b78' : '#e6ca65',
+      alpha: Math.random() * 0.4 + 0.15,
       speedX: (Math.random() - 0.5) * 0.35,
       speedY: -Math.random() * 0.45 - 0.1,
       pulse: Math.random() * 0.02 + 0.005,
-      isStar: Math.random() > 0.65, // 35% are twinkling 4-point diamond stars!
     });
-  }
-
-  function drawDiamondStar(x, y, size, color, alpha) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.fillStyle = color;
-    ctx.globalAlpha = alpha;
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = color;
-
-    ctx.beginPath();
-    ctx.moveTo(0, -size);
-    ctx.quadraticCurveTo(0, 0, size, 0);
-    ctx.quadraticCurveTo(0, 0, 0, size);
-    ctx.quadraticCurveTo(0, 0, -size, 0);
-    ctx.quadraticCurveTo(0, 0, 0, -size);
-    ctx.fill();
-    ctx.restore();
   }
 
   function renderParticles() {
@@ -72,8 +53,8 @@ function initAmbientParticles() {
       p.x += p.speedX;
       p.y += p.speedY;
 
-      p.alpha += Math.sin(Date.now() * p.pulse) * 0.004;
-      const currentAlpha = Math.max(0.12, Math.min(0.75, p.alpha));
+      p.alpha += Math.sin(Date.now() * p.pulse) * 0.003;
+      const currentAlpha = Math.max(0.1, Math.min(0.65, p.alpha));
 
       if (p.y < -10) {
         p.y = height + 10;
@@ -82,17 +63,13 @@ function initAmbientParticles() {
       if (p.x < -10) p.x = width + 10;
       if (p.x > width + 10) p.x = -10;
 
-      if (p.isStar) {
-        drawDiamondStar(p.x, p.y, p.radius * 2.2, p.color, currentAlpha);
-      } else {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = currentAlpha;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = p.color;
-        ctx.fill();
-      }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = currentAlpha;
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = p.color;
+      ctx.fill();
     });
 
     requestAnimationFrame(renderParticles);
@@ -107,30 +84,7 @@ function initAmbientParticles() {
 }
 initAmbientParticles();
 
-// 3. Ambient Sound Toggle Logic
-function initSoundToggle() {
-  const soundBtn = document.getElementById('sound-toggle-btn');
-  const soundLabel = document.getElementById('sound-label');
-  if (!soundBtn || !soundLabel) return;
-
-  let isPlaying = false;
-
-  soundBtn.addEventListener('click', () => {
-    isPlaying = !isPlaying;
-    if (isPlaying) {
-      soundBtn.classList.add('playing');
-      soundLabel.textContent = 'SOUND: ON';
-      showMaisonToast('ATELIER SOUNDTRACK', 'Ambient Audio Activated', 'Playing Place Vendôme Parisian salon acoustics.', '🎵');
-    } else {
-      soundBtn.classList.remove('playing');
-      soundLabel.textContent = 'SOUND: OFF';
-      showMaisonToast('ATELIER SOUNDTRACK', 'Audio Muted', 'Ambient soundtrack paused.', '🔇');
-    }
-  });
-}
-initSoundToggle();
-
-// 4. Dynamic 3D Card Parallax Tilt Engine
+// 3. Dynamic 3D Card Parallax Tilt Engine
 function initCardTilt() {
   const tiltCards = document.querySelectorAll('.tilt-card');
 
@@ -155,7 +109,7 @@ function initCardTilt() {
 }
 initCardTilt();
 
-// 5. Animated Heritage Stat Counters
+// 4. Animated Heritage Stat Counters
 function initStatCounters() {
   const stats = [
     { id: 'stat-1', target: 180 },
@@ -187,7 +141,7 @@ function initStatCounters() {
 }
 initStatCounters();
 
-// 6. High-Performance Three.js WebGL Scene Setup
+// 5. High-Performance Three.js WebGL Scene Setup
 const canvas = document.getElementById('coin-canvas');
 
 const scene = new THREE.Scene();
@@ -220,7 +174,7 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.shadowMap.autoUpdate = false;
 
-// 7. Balanced Moderate Studio Lighting Engine
+// 6. Balanced Moderate Studio Lighting Engine
 const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffebd8, 2.0);
 scene.add(hemiLight);
 
@@ -244,7 +198,7 @@ const pointLight = new THREE.PointLight(0xffffff, 2.5, 20);
 pointLight.position.set(0, 1.5, 5);
 scene.add(pointLight);
 
-// 8. Generate Studio Environment Map for Moderate Metallic Reflections
+// 7. Generate Studio Environment Map for Moderate Metallic Reflections
 const pmremGenerator = new THREE.PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
@@ -260,7 +214,7 @@ envScene.add(envLight2);
 const envMap = pmremGenerator.fromScene(envScene).texture;
 scene.environment = envMap;
 
-// 9. Responsive Scale Logic
+// 8. Responsive Scale Logic
 function getResponsiveScale() {
   const w = window.innerWidth;
   if (w < 480) return 0.85;
@@ -372,7 +326,7 @@ function createFallbackRing() {
   ScrollTrigger.refresh();
 }
 
-// 10. Live Precious Metal Swatches Logic
+// 9. Live Precious Metal Swatches Logic
 let currentMetal = 'rose-gold';
 
 const metalConfig = {
@@ -427,7 +381,7 @@ function updateRingMetalAndCard() {
   if (buyBtnEl) buyBtnEl.textContent = `ACQUIRE NOW — ${formattedPrice}`;
 }
 
-// 11. GSAP ScrollTriggers: Consecutive 1:1 Linear Scroll Motion
+// 10. GSAP ScrollTriggers: Consecutive 1:1 Linear Scroll Motion
 function setupScrollAnimations() {
   const mainTL = gsap.timeline({
     scrollTrigger: {
@@ -492,7 +446,7 @@ function setupScrollAnimations() {
   });
 }
 
-// 12. Custom Glassmorphism Maison Toast Notification System
+// 11. Custom Glassmorphism Maison Toast Notification System
 function showMaisonToast(badge, title, message, icon = '❖') {
   const container = document.getElementById('maison-toast-container');
   if (!container) return;
@@ -532,7 +486,7 @@ function showMaisonToast(badge, title, message, icon = '❖') {
   setTimeout(closeToast, 3500);
 }
 
-// 13. Interactive Event Listeners & Custom Toast Triggers
+// 12. Interactive Event Listeners & Custom Toast Triggers
 const openConciergeBtn = document.getElementById('open-concierge');
 const heroBookBtn = document.getElementById('hero-book-btn');
 const closeConciergeBtn = document.getElementById('close-concierge');
@@ -600,7 +554,7 @@ if (newsletterForm) {
   });
 }
 
-// 14. Render Loop (Automatic continuous left-to-right turntable rotation & passive mouse parallax)
+// 13. Render Loop (Automatic continuous left-to-right turntable rotation & passive mouse parallax)
 let mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0;
 
 window.addEventListener('mousemove', (e) => {
