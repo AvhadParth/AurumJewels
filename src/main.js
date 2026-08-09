@@ -472,25 +472,45 @@ function setupScrollAnimations() {
       onReverseComplete: () => productPanel.classList.remove('active')
     }, 0.75);
 
-  const getGapWidth = () => Math.min(window.innerWidth * (window.innerWidth < 768 ? 0.28 : 0.35), 450);
-
   const lines = document.querySelectorAll('.poetry-line');
-  lines.forEach((line) => {
-    const gap = line.querySelector('.dynamic-gap');
-    if (!gap) return;
 
-    const lineTL = gsap.timeline({
-      scrollTrigger: {
-        trigger: line,
-        start: 'top 62%',
-        end: 'bottom 38%',
-        scrub: 0.1,
-      }
-    });
+  ScrollTrigger.create({
+    trigger: '#scroll-experience',
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: true,
+    onUpdate: () => {
+      const ringCenterY = window.innerHeight * 0.48;
+      const activeRadius = window.innerHeight * (window.innerWidth < 768 ? 0.30 : 0.38);
+      const maxGap = Math.min(window.innerWidth * (window.innerWidth < 768 ? 0.32 : 0.40), 460);
 
-    lineTL
-      .to(gap, { width: getGapWidth, ease: 'power1.out', duration: 0.5 })
-      .to(gap, { width: 0, ease: 'power1.in', duration: 0.5 });
+      lines.forEach((line) => {
+        const gap = line.querySelector('.dynamic-gap');
+        if (!gap) return;
+
+        const rect = line.getBoundingClientRect();
+        const lineCenterY = rect.top + rect.height / 2;
+        const dist = Math.abs(lineCenterY - ringCenterY);
+
+        if (dist < activeRadius) {
+          // Smooth continuous cosine bell-curve (0 -> 1 -> 0)
+          const factor = Math.cos((dist / activeRadius) * (Math.PI / 2));
+          const targetWidth = maxGap * factor;
+          const currentWidth = parseFloat(gap.style.width) || 0;
+          // Smooth Lerp easing
+          const lerpedWidth = currentWidth + (targetWidth - currentWidth) * 0.35;
+          gap.style.width = `${lerpedWidth.toFixed(1)}px`;
+        } else {
+          const currentWidth = parseFloat(gap.style.width) || 0;
+          if (currentWidth > 0.5) {
+            const lerpedWidth = currentWidth * 0.7;
+            gap.style.width = `${lerpedWidth.toFixed(1)}px`;
+          } else {
+            gap.style.width = '0px';
+          }
+        }
+      });
+    }
   });
 }
 
