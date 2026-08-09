@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Aurum-Paris</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,10 +45,43 @@
       <a href="#testimonials">Press</a>
     </nav>
 
-    <button class="rose-btn consultation-btn" id="open-concierge">
-      <span>BOOK CONSULTATION</span>
-    </button>
+    <div class="nav-actions">
+      <button class="rose-btn consultation-btn" id="open-concierge">
+        <span>BOOK CONSULTATION</span>
+      </button>
+
+      <!-- Luxury Mobile Hamburger Toggle -->
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open Navigation Menu">
+        <span class="menu-line line-top"></span>
+        <span class="menu-line line-mid"></span>
+        <span class="menu-line line-bot"></span>
+      </button>
+    </div>
   </header>
+
+  <!-- Mobile Fullscreen Navigation Overlay -->
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+    <div class="mobile-nav-content blush-panel">
+      <div class="mobile-nav-header">
+        <span class="logo-text">AURUM PARIS</span>
+        <button class="close-mobile-nav" id="close-mobile-nav" aria-label="Close Menu">✕</button>
+      </div>
+
+      <nav class="mobile-nav-menu">
+        <a href="#collections" class="mobile-nav-link">COLLECTIONS</a>
+        <a href="#scroll-experience" class="mobile-nav-link">HIGH JEWELRY 3D</a>
+        <a href="#heritage" class="mobile-nav-link">SAVOIR-FAIRE</a>
+        <a href="#testimonials" class="mobile-nav-link">PRESS & EXHIBITIONS</a>
+      </nav>
+
+      <div class="mobile-nav-footer">
+        <button class="rose-btn mobile-consult-btn" id="mobile-book-consult-btn">
+          BOOK PRIVATE CONSULTATION
+        </button>
+        <span class="mobile-nav-loc">12 Place Vendôme • Paris</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Clean Sophisticated Luxury Hero Section -->
   <section id="hero" class="hero-video-section">

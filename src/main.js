@@ -21,7 +21,54 @@ gsap.ticker.add((time) => {
 });
 gsap.ticker.lagSmoothing(0);
 
-// 2. Floating Ambient Gold Dust Particles Canvas
+// 2. Mobile Navigation Drawer Toggle System
+function initMobileNavigation() {
+  const menuToggle = document.getElementById('mobile-menu-toggle');
+  const closeNav = document.getElementById('close-mobile-nav');
+  const navOverlay = document.getElementById('mobile-nav-overlay');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  const mobileBookBtn = document.getElementById('mobile-book-consult-btn');
+  const drawerOverlay = document.getElementById('drawer-overlay');
+
+  if (!menuToggle || !navOverlay) return;
+
+  const openMobileNav = () => {
+    menuToggle.classList.add('active');
+    navOverlay.classList.add('active');
+  };
+
+  const closeMobileMenu = () => {
+    menuToggle.classList.remove('active');
+    navOverlay.classList.remove('active');
+  };
+
+  menuToggle.addEventListener('click', () => {
+    if (navOverlay.classList.contains('active')) {
+      closeMobileMenu();
+    } else {
+      openMobileNav();
+    }
+  });
+
+  if (closeNav) closeNav.addEventListener('click', closeMobileMenu);
+  navOverlay.addEventListener('click', (e) => {
+    if (e.target === navOverlay) closeMobileMenu();
+  });
+
+  mobileNavLinks.forEach((link) => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  if (mobileBookBtn && drawerOverlay) {
+    mobileBookBtn.addEventListener('click', () => {
+      closeMobileMenu();
+      drawerOverlay.classList.add('active');
+    });
+  }
+}
+initMobileNavigation();
+
+// 3. Floating Ambient Gold Dust Particles Canvas
 function initAmbientParticles() {
   const pCanvas = document.getElementById('ambient-canvas');
   if (!pCanvas) return;
@@ -31,7 +78,7 @@ function initAmbientParticles() {
   let height = (pCanvas.height = window.innerHeight);
 
   const particles = [];
-  const particleCount = window.innerWidth < 768 ? 24 : 45;
+  const particleCount = window.innerWidth < 768 ? 20 : 45;
 
   for (let i = 0; i < particleCount; i++) {
     particles.push({
@@ -84,8 +131,9 @@ function initAmbientParticles() {
 }
 initAmbientParticles();
 
-// 3. Dynamic 3D Card Parallax Tilt Engine
+// 4. Dynamic 3D Card Parallax Tilt Engine (Disabled on Mobile for Battery/Performance Efficiency)
 function initCardTilt() {
+  if (window.innerWidth < 768) return;
   const tiltCards = document.querySelectorAll('.tilt-card');
 
   tiltCards.forEach((card) => {
@@ -109,7 +157,7 @@ function initCardTilt() {
 }
 initCardTilt();
 
-// 4. Animated Heritage Stat Counters
+// 5. Animated Heritage Stat Counters
 function initStatCounters() {
   const stats = [
     { id: 'stat-1', target: 180 },
@@ -141,7 +189,7 @@ function initStatCounters() {
 }
 initStatCounters();
 
-// 5. High-Performance Three.js WebGL Scene Setup
+// 6. High-Performance Three.js WebGL Scene Setup
 const canvas = document.getElementById('coin-canvas');
 
 const scene = new THREE.Scene();
@@ -174,7 +222,7 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.shadowMap.autoUpdate = false;
 
-// 6. Balanced Moderate Studio Lighting Engine
+// 7. Balanced Moderate Studio Lighting Engine
 const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffebd8, 2.0);
 scene.add(hemiLight);
 
@@ -198,7 +246,7 @@ const pointLight = new THREE.PointLight(0xffffff, 2.5, 20);
 pointLight.position.set(0, 1.5, 5);
 scene.add(pointLight);
 
-// 7. Generate Studio Environment Map for Moderate Metallic Reflections
+// 8. Generate Studio Environment Map for Moderate Metallic Reflections
 const pmremGenerator = new THREE.PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
@@ -214,18 +262,18 @@ envScene.add(envLight2);
 const envMap = pmremGenerator.fromScene(envScene).texture;
 scene.environment = envMap;
 
-// 8. Responsive Scale Logic
+// 9. Fine-Tuned Responsive Scale Logic for Mobile Viewports
 function getResponsiveScale() {
   const w = window.innerWidth;
-  if (w < 480) return 0.85;
-  if (w < 768) return 1.02;
+  if (w < 480) return 0.78;
+  if (w < 768) return 0.98;
   if (w < 1024) return 1.25;
   return 1.42;
 }
 
-// Helper to get exact top Y coordinate safely below the 80px navbar
+// Helper to get exact top Y coordinate safely below mobile & desktop navbars
 function getTopStartY() {
-  return window.innerWidth < 768 ? 1.2 : 1.45;
+  return window.innerWidth < 768 ? 1.05 : 1.45;
 }
 
 // Load User's Custom ring.glb 3D Model with Perfect Pivot Alignment
@@ -326,7 +374,7 @@ function createFallbackRing() {
   ScrollTrigger.refresh();
 }
 
-// 9. Live Precious Metal Swatches Logic
+// 10. Live Precious Metal Swatches Logic
 let currentMetal = 'rose-gold';
 
 const metalConfig = {
@@ -381,7 +429,7 @@ function updateRingMetalAndCard() {
   if (buyBtnEl) buyBtnEl.textContent = `ACQUIRE NOW — ${formattedPrice}`;
 }
 
-// 10. GSAP ScrollTriggers: Consecutive 1:1 Linear Scroll Motion
+// 11. GSAP ScrollTriggers: Consecutive 1:1 Linear Scroll Motion
 function setupScrollAnimations() {
   const mainTL = gsap.timeline({
     scrollTrigger: {
@@ -397,7 +445,7 @@ function setupScrollAnimations() {
   const productPanel = document.getElementById('product-reveal-panel');
 
   const startY = getTopStartY();
-  const targetY = window.innerWidth < 768 ? 1.15 : 1.35;
+  const targetY = window.innerWidth < 768 ? 1.05 : 1.35;
 
   ringGroup.position.set(0, startY, 0);
   ringGroup.rotation.set(0.3, 0, 0);
@@ -424,7 +472,7 @@ function setupScrollAnimations() {
       onReverseComplete: () => productPanel.classList.remove('active')
     }, 0.75);
 
-  const getGapWidth = () => Math.min(window.innerWidth * 0.35, 450);
+  const getGapWidth = () => Math.min(window.innerWidth * (window.innerWidth < 768 ? 0.28 : 0.35), 450);
 
   const lines = document.querySelectorAll('.poetry-line');
   lines.forEach((line) => {
@@ -446,7 +494,7 @@ function setupScrollAnimations() {
   });
 }
 
-// 11. Custom Glassmorphism Maison Toast Notification System
+// 12. Custom Glassmorphism Maison Toast Notification System
 function showMaisonToast(badge, title, message, icon = '❖') {
   const container = document.getElementById('maison-toast-container');
   if (!container) return;
@@ -486,7 +534,7 @@ function showMaisonToast(badge, title, message, icon = '❖') {
   setTimeout(closeToast, 3500);
 }
 
-// 12. Interactive Event Listeners & Custom Toast Triggers
+// 13. Interactive Event Listeners & Custom Toast Triggers
 const openConciergeBtn = document.getElementById('open-concierge');
 const heroBookBtn = document.getElementById('hero-book-btn');
 const closeConciergeBtn = document.getElementById('close-concierge');
@@ -554,10 +602,11 @@ if (newsletterForm) {
   });
 }
 
-// 13. Render Loop (Automatic continuous left-to-right turntable rotation & passive mouse parallax)
+// 14. Render Loop (Automatic continuous left-to-right turntable rotation & passive mouse parallax)
 let mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0;
 
 window.addEventListener('mousemove', (e) => {
+  if (window.innerWidth < 768) return;
   targetMouseX = (e.clientX / window.innerWidth - 0.5) * 0.15;
   targetMouseY = (e.clientY / window.innerHeight - 0.5) * 0.15;
 }, { passive: true });
@@ -573,10 +622,10 @@ function animate() {
     fallbackBandMesh.rotation.y += 0.007;
   }
 
-  mouseX += (targetMouseX - mouseX) * 0.08;
-  mouseY += (targetMouseY - mouseY) * 0.08;
+  if (window.innerWidth >= 768 && ringGroup) {
+    mouseX += (targetMouseX - mouseX) * 0.08;
+    mouseY += (targetMouseY - mouseY) * 0.08;
 
-  if (ringGroup) {
     scene.rotation.y = mouseX * 0.15;
     scene.rotation.x = mouseY * 0.15;
   }
