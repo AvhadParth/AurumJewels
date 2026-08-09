@@ -94,13 +94,13 @@ envScene.add(envLight2);
 const envMap = pmremGenerator.fromScene(envScene).texture;
 scene.environment = envMap;
 
-// 5. Responsive Scale Logic for Mobile, Tablet, Laptop & Desktop
+// 5. Responsive Scale Logic (Increased Ring Size by ~20%)
 function getResponsiveScale() {
   const w = window.innerWidth;
-  if (w < 480) return 0.72;
-  if (w < 768) return 0.88;
-  if (w < 1024) return 1.08;
-  return 1.25;
+  if (w < 480) return 0.88;
+  if (w < 768) return 1.05;
+  if (w < 1024) return 1.28;
+  return 1.48;
 }
 
 // Load User's Custom ring.glb 3D Model with Perfect Pivot Alignment
@@ -272,7 +272,7 @@ function setupScrollAnimations() {
   ringGroup.position.set(0, 0.6, 0);
   ringGroup.rotation.set(0.3, 0, 0);
 
-  const targetY = window.innerWidth < 768 ? 1.15 : 1.30;
+  const targetY = window.innerWidth < 768 ? 1.25 : 1.42;
 
   mainTL
     .fromTo(ringGroup.position, { y: 0.6 }, { y: 0, ease: 'none', duration: 0.75 }, 0)
