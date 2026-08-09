@@ -482,15 +482,15 @@ function setupScrollAnimations() {
     const lineTL = gsap.timeline({
       scrollTrigger: {
         trigger: line,
-        start: 'top 82%',
-        end: 'bottom 18%',
+        start: 'top 62%',
+        end: 'bottom 38%',
         scrub: 0.1,
       }
     });
 
     lineTL
-      .to(gap, { width: getGapWidth, ease: 'power2.out' })
-      .to(gap, { width: 0, ease: 'power2.in' });
+      .to(gap, { width: getGapWidth, ease: 'power1.out', duration: 0.5 })
+      .to(gap, { width: 0, ease: 'power1.in', duration: 0.5 });
   });
 }
 
