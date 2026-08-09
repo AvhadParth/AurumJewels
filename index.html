@@ -14,13 +14,26 @@
 
   <!-- Minimalist Luxury Navbar -->
   <header class="navbar">
-    <div class="logo">
-      <svg width="24" height="24" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav-logo-icon">
-        <path d="M32 6 L54 32 L32 58 L10 32 Z" stroke="#c48b78" stroke-width="2.5" stroke-linejoin="round"/>
-        <circle cx="32" cy="32" r="4" fill="#c48b78"/>
+    <a href="#" class="logo">
+      <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="maison-logo-mark">
+        <path d="M20 2 L29 11 L20 20 L11 11 Z" fill="url(#logoGoldGrad1)"/>
+        <path d="M20 20 L29 29 L20 38 L11 29 Z" fill="url(#logoGoldGrad2)"/>
+        <path d="M2 20 L11 11 L20 20 L11 29 Z" fill="url(#logoGoldGrad1)" opacity="0.88"/>
+        <path d="M20 20 L29 11 L38 20 L29 29 Z" fill="url(#logoGoldGrad2)" opacity="0.88"/>
+        <defs>
+          <linearGradient id="logoGoldGrad1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#c48b78"/>
+            <stop offset="100%" stop-color="#e6ca65"/>
+          </linearGradient>
+          <linearGradient id="logoGoldGrad2" x1="40" y1="0" x2="0" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#e6ca65"/>
+            <stop offset="100%" stop-color="#b57563"/>
+          </linearGradient>
+        </defs>
       </svg>
-      <span>AURUM</span> <span class="logo-tag">PARIS</span>
-    </div>
+      <span class="logo-text">AURUM</span>
+      <span class="logo-sub">PARIS</span>
+    </a>
     
     <nav class="nav-links">
       <a href="#collections">Collections</a>
@@ -34,7 +47,7 @@
     </button>
   </header>
 
-  <!-- Redesigned Immersive Video Hero Section with Modernized Crest Emblem -->
+  <!-- Redesigned Immersive Video Hero Section -->
   <section id="hero" class="hero-video-section">
     <div class="hero-video-bg">
       <video 
@@ -414,7 +427,26 @@
 
     <div class="footer-main">
       <div class="footer-col brand-col">
-        <div class="footer-logo">❖ AURUM <span class="logo-tag">PARIS</span></div>
+        <a href="#" class="footer-logo logo">
+          <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="maison-logo-mark">
+            <path d="M20 2 L29 11 L20 20 L11 11 Z" fill="url(#footerLogoGrad1)"/>
+            <path d="M20 20 L29 29 L20 38 L11 29 Z" fill="url(#footerLogoGrad2)"/>
+            <path d="M2 20 L11 11 L20 20 L11 29 Z" fill="url(#footerLogoGrad1)" opacity="0.88"/>
+            <path d="M20 20 L29 11 L38 20 L29 29 Z" fill="url(#footerLogoGrad2)" opacity="0.88"/>
+            <defs>
+              <linearGradient id="footerLogoGrad1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#c48b78"/>
+                <stop offset="100%" stop-color="#e6ca65"/>
+              </linearGradient>
+              <linearGradient id="footerLogoGrad2" x1="40" y1="0" x2="0" y2="40" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#e6ca65"/>
+                <stop offset="100%" stop-color="#b57563"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="logo-text">AURUM</span>
+          <span class="logo-sub">PARIS</span>
+        </a>
         <p class="brand-tagline">
           Haute Joaillerie hand-crafted in Paris since 1912. Forged in 18K gold and conflict-free ethical diamonds.
         </p>
