@@ -12,6 +12,13 @@
 </head>
 <body>
 
+  <!-- Floating Ambient Gold Dust Particle Canvas -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Custom Luxury Follower Cursor -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-circle" id="cursor-circle"></div>
+
   <!-- Minimalist Luxury Navbar -->
   <header class="navbar">
     <a href="#" class="logo">
@@ -42,7 +49,7 @@
       <a href="#testimonials">Press</a>
     </nav>
 
-    <button class="rose-btn consultation-btn" id="open-concierge">
+    <button class="rose-btn consultation-btn hover-target" id="open-concierge">
       <span>BOOK CONSULTATION</span>
     </button>
   </header>
@@ -72,7 +79,7 @@
     
     <div class="hero-video-content">
       <!-- Modernized Ultra-Luxury Hero Crest Emblem -->
-      <div class="hero-brand-emblem">
+      <div class="hero-brand-emblem hover-target">
         <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-emblem-svg">
           <path d="M32 4 L56 32 L32 60 L8 32 Z" stroke="url(#roseGoldGrad)" stroke-width="1.8" stroke-linejoin="round"/>
           <path d="M32 14 L46 32 L32 50 L18 32 Z" stroke="url(#goldGrad)" stroke-width="1.2" stroke-linejoin="round"/>
@@ -95,38 +102,38 @@
 
       <div class="sub-badge">— MAISON DE HAUTE JOAILLERIE • EST. 1912 • PARIS —</div>
       
-      <h1 class="hero-title">
+      <h1 class="hero-title reveal-text">
         THE ART OF <br />
         <span class="italic-light">Eternal</span> HARMONY
       </h1>
       
-      <p class="hero-subtitle">
+      <p class="hero-subtitle reveal-text">
         Step inside our Place Vendôme atelier. Discover our Haute Joaillerie creations, customize your ring metal live in 3D, and scroll through romantic poetry.
       </p>
 
       <div class="hero-cta-group">
-        <a href="#scroll-experience" class="rose-btn hero-primary-btn">
+        <a href="#scroll-experience" class="rose-btn hero-primary-btn hover-target">
           <span>EXPLORE CREATIONS</span>
         </a>
-        <button class="hero-secondary-btn" id="hero-book-btn">
+        <button class="hero-secondary-btn hover-target" id="hero-book-btn">
           BOOK PRIVATE CONSULTATION
         </button>
       </div>
 
       <div class="hero-highlights-grid">
-        <div class="highlight-item">
+        <div class="highlight-item tilt-card">
           <span class="highlight-title">18K ROSE GOLD</span>
           <span class="highlight-sub">Hand-forged in Paris</span>
         </div>
-        <div class="highlight-item">
+        <div class="highlight-item tilt-card">
           <span class="highlight-title">VVS1 DIAMONDS</span>
           <span class="highlight-sub">Ethically mined gems</span>
         </div>
-        <div class="highlight-item">
+        <div class="highlight-item tilt-card">
           <span class="highlight-title">BESPOKE ENGRAVING</span>
           <span class="highlight-sub">Master artisan craft</span>
         </div>
-        <div class="highlight-item">
+        <div class="highlight-item tilt-card">
           <span class="highlight-title">LIFETIME WARRANTY</span>
           <span class="highlight-sub">Maison guarantee</span>
         </div>
@@ -151,13 +158,13 @@
         <div class="customizer-toolbar">
           <span class="toolbar-label">SELECT METAL:</span>
           <div class="metal-swatches">
-            <button class="swatch-btn active" data-metal="rose-gold" title="18K Rose Gold">
+            <button class="swatch-btn active hover-target" data-metal="rose-gold" title="18K Rose Gold">
               <span class="swatch-color" style="background: #c48b78;"></span>
             </button>
-            <button class="swatch-btn" data-metal="yellow-gold" title="18K Yellow Gold">
+            <button class="swatch-btn hover-target" data-metal="yellow-gold" title="18K Yellow Gold">
               <span class="swatch-color" style="background: #e6ca65;"></span>
             </button>
-            <button class="swatch-btn" data-metal="platinum" title="Platinum / White Gold">
+            <button class="swatch-btn hover-target" data-metal="platinum" title="Platinum / White Gold">
               <span class="swatch-color" style="background: #e2e8f0;"></span>
             </button>
           </div>
@@ -181,10 +188,10 @@
 
         <!-- Action Buttons -->
         <div class="reveal-actions">
-          <button class="rose-btn cart-btn" id="custom-add-bag-btn">
+          <button class="rose-btn cart-btn hover-target" id="custom-add-bag-btn">
             ADD TO BAG
           </button>
-          <button class="buy-btn" id="custom-buy-btn">
+          <button class="buy-btn hover-target" id="custom-buy-btn">
             ACQUIRE NOW — $16,800
           </button>
         </div>
@@ -251,28 +258,28 @@
     <div class="heritage-container">
       <div class="heritage-content">
         <div class="sub-badge">— SAVOIR-FAIRE & HERITAGE —</div>
-        <h2>THE PLACE VENDÔME ATELIER</h2>
-        <p class="heritage-body">
+        <h2 class="reveal-text">THE PLACE VENDÔME ATELIER</h2>
+        <p class="heritage-body reveal-text">
           Founded in 1912 at 12 Place Vendôme, Maison Aurum blends century-old French benchwork with state-of-the-art 3D precision engineering. Every ring requires over 180 hours of meticulous hand-setting by master joailliers.
         </p>
 
         <div class="heritage-stats-grid">
-          <div class="h-stat-item">
-            <span class="h-stat-number">180+</span>
+          <div class="h-stat-item tilt-card">
+            <span class="h-stat-number" data-target="180" id="stat-1">0</span><span class="stat-plus">+</span>
             <span class="h-stat-label">HOURS HAND-CRAFTED</span>
           </div>
-          <div class="h-stat-item">
-            <span class="h-stat-number">100%</span>
+          <div class="h-stat-item tilt-card">
+            <span class="h-stat-number" data-target="100" id="stat-2">0</span><span class="stat-plus">%</span>
             <span class="h-stat-label">KIMBERLEY CERTIFIED</span>
           </div>
-          <div class="h-stat-item">
-            <span class="h-stat-number">114</span>
+          <div class="h-stat-item tilt-card">
+            <span class="h-stat-number" data-target="114" id="stat-3">0</span><span class="stat-plus"></span>
             <span class="h-stat-label">YEARS OF HERITAGE</span>
           </div>
         </div>
       </div>
 
-      <div class="heritage-card blush-panel">
+      <div class="heritage-card blush-panel tilt-card hover-target">
         <img src="/images/luxury_necklace.png" alt="Master Atelier Craftsmanship" class="heritage-img" />
         <div class="heritage-card-overlay">
           <span class="atelier-tag">PARIS BENCHWORK</span>
@@ -286,12 +293,12 @@
   <section id="collections" class="collections-section">
     <div class="section-header">
       <div class="sub-badge">— CURATED SELECTIONS —</div>
-      <h2>THE ATELIER COLLECTION</h2>
-      <p class="light-desc">Hand-forged masterpieces from our Paris studio</p>
+      <h2 class="reveal-text">THE ATELIER COLLECTION</h2>
+      <p class="light-desc reveal-text">Hand-forged masterpieces from our Paris studio</p>
     </div>
 
     <div class="collections-grid">
-      <div class="collection-card blush-panel">
+      <div class="collection-card blush-panel tilt-card hover-target">
         <div class="card-img-wrapper">
           <img src="/images/rose_solitaire.png" alt="The Rosé Solitaire Ring" class="card-img" />
         </div>
@@ -299,10 +306,10 @@
         <h3>The Rosé Solitaire</h3>
         <p class="light-body">Rose Gold band set with a 3.0 Carat VVS1 Cushion Cut Diamond and soft pink pavé accents.</p>
         <div class="card-price">$16,800 USD</div>
-        <button class="card-btn collection-inquiry-btn" data-title="The Rosé Solitaire">REQUEST INQUIRY</button>
+        <button class="card-btn collection-inquiry-btn hover-target" data-title="The Rosé Solitaire">REQUEST INQUIRY</button>
       </div>
 
-      <div class="collection-card blush-panel">
+      <div class="collection-card blush-panel tilt-card hover-target">
         <div class="card-img-wrapper">
           <img src="/images/imperiale_ruby.png" alt="The Imperiale Ruby Band" class="card-img" />
         </div>
@@ -310,10 +317,10 @@
         <h3>The Imperiale Ruby Band</h3>
         <p class="light-body">Warm 18K Gold band crowned with a 3.2 Carat Pigeon Blood Ruby and hand-carved filigree.</p>
         <div class="card-price">$22,500 USD</div>
-        <button class="card-btn collection-inquiry-btn" data-title="The Imperiale Ruby Band">REQUEST INQUIRY</button>
+        <button class="card-btn collection-inquiry-btn hover-target" data-title="The Imperiale Ruby Band">REQUEST INQUIRY</button>
       </div>
 
-      <div class="collection-card blush-panel">
+      <div class="collection-card blush-panel tilt-card hover-target">
         <div class="card-img-wrapper">
           <img src="/images/fleur_sapphire.png" alt="The Fleur Sapphire Ring" class="card-img" />
         </div>
@@ -321,7 +328,7 @@
         <h3>The Fleur Sapphire Ring</h3>
         <p class="light-body">Platinum band showcasing a 3.5 Carat Royal Blue Sapphire with delicate diamond halo.</p>
         <div class="card-price">$24,900 USD</div>
-        <button class="card-btn collection-inquiry-btn" data-title="The Fleur Sapphire Ring">REQUEST INQUIRY</button>
+        <button class="card-btn collection-inquiry-btn hover-target" data-title="The Fleur Sapphire Ring">REQUEST INQUIRY</button>
       </div>
     </div>
   </section>
@@ -330,11 +337,11 @@
   <section id="testimonials" class="testimonials-section">
     <div class="section-header">
       <div class="sub-badge">— CRITICAL ACCLAIM —</div>
-      <h2>WHAT THE PRESS SAYS</h2>
+      <h2 class="reveal-text">WHAT THE PRESS SAYS</h2>
     </div>
 
     <div class="testimonials-grid">
-      <div class="testimonial-card blush-panel">
+      <div class="testimonial-card blush-panel tilt-card hover-target">
         <div class="quote-mark">“</div>
         <p class="quote-text">
           "Maison Aurum redefines modern Haute Joaillerie. Their interactive 3D digital journey sets a new world standard for luxury jewelry design."
@@ -342,7 +349,7 @@
         <div class="quote-author">— VOGUE INTERNATIONAL</div>
       </div>
 
-      <div class="testimonial-card blush-panel">
+      <div class="testimonial-card blush-panel tilt-card hover-target">
         <div class="quote-mark">“</div>
         <p class="quote-text">
           "Flawless benchwork meets poetry. Aurum's Place Vendôme atelier continues to lead high jewelry into the digital renaissance."
@@ -350,7 +357,7 @@
         <div class="quote-author">— HARPER'S BAZAAR</div>
       </div>
 
-      <div class="testimonial-card blush-panel">
+      <div class="testimonial-card blush-panel tilt-card hover-target">
         <div class="quote-mark">“</div>
         <p class="quote-text">
           "The pinnacle of bespoke luxury. Their Kimberley-certified conflict-free stones and 3D customizer offer unmatched transparency."
@@ -363,7 +370,7 @@
   <!-- Ultra-Sleek Minimalist Private Consultation Drawer -->
   <div class="concierge-drawer-overlay" id="drawer-overlay">
     <div class="concierge-drawer blush-panel sleek-drawer">
-      <button class="close-btn" id="close-concierge">✕</button>
+      <button class="close-btn hover-target" id="close-concierge">✕</button>
       
       <div class="drawer-header-box">
         <div class="sub-badge">— PRIVATE ATELIER —</div>
@@ -396,7 +403,7 @@
           <input type="date" value="2026-08-15" required id="consult-date" />
         </div>
 
-        <button type="submit" class="rose-btn submit-btn">
+        <button type="submit" class="rose-btn submit-btn hover-target">
           <span>REQUEST CONSULTATION</span>
         </button>
       </form>
@@ -420,14 +427,14 @@
       <form class="newsletter-form" id="newsletter-form">
         <div class="input-wrapper">
           <input type="email" placeholder="ENTER YOUR EMAIL ADDRESS" required id="newsletter-email" />
-          <button type="submit" class="newsletter-btn">SUBSCRIBE</button>
+          <button type="submit" class="newsletter-btn hover-target">SUBSCRIBE</button>
         </div>
       </form>
     </div>
 
     <div class="footer-main">
       <div class="footer-col brand-col">
-        <a href="#" class="footer-logo logo">
+        <a href="#" class="footer-logo logo hover-target">
           <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="maison-logo-mark">
             <path d="M20 2 L29 11 L20 20 L11 11 Z" fill="url(#footerLogoGrad1)"/>
             <path d="M20 20 L29 29 L20 38 L11 29 Z" fill="url(#footerLogoGrad2)"/>

@@ -21,7 +21,160 @@ gsap.ticker.add((time) => {
 });
 gsap.ticker.lagSmoothing(0);
 
-// 2. High-Performance Three.js WebGL Scene Setup
+// 2. Floating Ambient Gold Dust Canvas System
+function initAmbientParticles() {
+  const pCanvas = document.getElementById('ambient-canvas');
+  if (!pCanvas) return;
+
+  const ctx = pCanvas.getContext('2d');
+  let width = (pCanvas.width = window.innerWidth);
+  let height = (pCanvas.height = window.innerHeight);
+
+  const particles = [];
+  const particleCount = window.innerWidth < 768 ? 24 : 45;
+
+  for (let i = 0; i < particleCount; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 2.2 + 0.6,
+      color: Math.random() > 0.4 ? '#c48b78' : '#e6ca65',
+      alpha: Math.random() * 0.4 + 0.15,
+      speedX: (Math.random() - 0.5) * 0.35,
+      speedY: -Math.random() * 0.45 - 0.1,
+      pulse: Math.random() * 0.02 + 0.005,
+    });
+  }
+
+  function renderParticles() {
+    ctx.clearRect(0, 0, width, height);
+
+    particles.forEach((p) => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+
+      p.alpha += Math.sin(Date.now() * p.pulse) * 0.003;
+      const currentAlpha = Math.max(0.1, Math.min(0.65, p.alpha));
+
+      if (p.y < -10) {
+        p.y = height + 10;
+        p.x = Math.random() * width;
+      }
+      if (p.x < -10) p.x = width + 10;
+      if (p.x > width + 10) p.x = -10;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = currentAlpha;
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = p.color;
+      ctx.fill();
+    });
+
+    requestAnimationFrame(renderParticles);
+  }
+
+  renderParticles();
+
+  window.addEventListener('resize', () => {
+    width = pCanvas.width = window.innerWidth;
+    height = pCanvas.height = window.innerHeight;
+  });
+}
+initAmbientParticles();
+
+// 3. Custom Luxury Follower Cursor Engine
+function initCustomCursor() {
+  const dot = document.getElementById('cursor-dot');
+  const circle = document.getElementById('cursor-circle');
+  if (!dot || !circle || window.innerWidth < 768) return;
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let circleX = mouseX;
+  let circleY = mouseY;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+  }, { passive: true });
+
+  function renderCursor() {
+    circleX += (mouseX - circleX) * 0.18;
+    circleY += (mouseY - circleY) * 0.18;
+    circle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+    requestAnimationFrame(renderCursor);
+  }
+  renderCursor();
+
+  const hoverTargets = document.querySelectorAll('.hover-target, a, button, .tilt-card');
+  hoverTargets.forEach((target) => {
+    target.addEventListener('mouseenter', () => circle.classList.add('active'));
+    target.addEventListener('mouseleave', () => circle.classList.remove('active'));
+  });
+}
+initCustomCursor();
+
+// 4. Dynamic 3D Card Parallax Tilt Engine
+function initCardTilt() {
+  const tiltCards = document.querySelectorAll('.tilt-card');
+
+  tiltCards.forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -8;
+      const rotateY = ((x - centerX) / centerX) * 8;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    });
+  });
+}
+initCardTilt();
+
+// 5. Animated Heritage Stat Counters
+function initStatCounters() {
+  const stats = [
+    { id: 'stat-1', target: 180 },
+    { id: 'stat-2', target: 100 },
+    { id: 'stat-3', target: 114 }
+  ];
+
+  stats.forEach((s) => {
+    const el = document.getElementById(s.id);
+    if (!el) return;
+
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      once: true,
+      onEnter: () => {
+        let countObj = { val: 0 };
+        gsap.to(countObj, {
+          val: s.target,
+          duration: 2.0,
+          ease: 'power2.out',
+          onUpdate: () => {
+            el.textContent = Math.floor(countObj.val);
+          }
+        });
+      }
+    });
+  });
+}
+initStatCounters();
+
+// 6. High-Performance Three.js WebGL Scene Setup
 const canvas = document.getElementById('coin-canvas');
 
 const scene = new THREE.Scene();
@@ -54,7 +207,7 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.shadowMap.autoUpdate = false;
 
-// 3. Balanced Moderate Studio Lighting Engine
+// 7. Balanced Moderate Studio Lighting Engine
 const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffebd8, 2.0);
 scene.add(hemiLight);
 
@@ -78,7 +231,7 @@ const pointLight = new THREE.PointLight(0xffffff, 2.5, 20);
 pointLight.position.set(0, 1.5, 5);
 scene.add(pointLight);
 
-// 4. Generate Studio Environment Map for Moderate Metallic Reflections
+// 8. Generate Studio Environment Map for Moderate Metallic Reflections
 const pmremGenerator = new THREE.PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
@@ -94,7 +247,7 @@ envScene.add(envLight2);
 const envMap = pmremGenerator.fromScene(envScene).texture;
 scene.environment = envMap;
 
-// 5. Responsive Scale Logic
+// 9. Responsive Scale Logic
 function getResponsiveScale() {
   const w = window.innerWidth;
   if (w < 480) return 0.85;
@@ -206,7 +359,7 @@ function createFallbackRing() {
   ScrollTrigger.refresh();
 }
 
-// 6. Live Precious Metal Swatches Logic
+// 10. Live Precious Metal Swatches Logic
 let currentMetal = 'rose-gold';
 
 const metalConfig = {
@@ -261,7 +414,7 @@ function updateRingMetalAndCard() {
   if (buyBtnEl) buyBtnEl.textContent = `ACQUIRE NOW — ${formattedPrice}`;
 }
 
-// 7. GSAP ScrollTriggers: Consecutive 1:1 Linear Scroll Motion
+// 11. GSAP ScrollTriggers: Consecutive 1:1 Linear Scroll Motion
 function setupScrollAnimations() {
   const mainTL = gsap.timeline({
     scrollTrigger: {
@@ -326,7 +479,7 @@ function setupScrollAnimations() {
   });
 }
 
-// 8. Custom Glassmorphism Maison Toast Notification System
+// 12. Custom Glassmorphism Maison Toast Notification System
 function showMaisonToast(badge, title, message, icon = '❖') {
   const container = document.getElementById('maison-toast-container');
   if (!container) return;
@@ -366,7 +519,7 @@ function showMaisonToast(badge, title, message, icon = '❖') {
   setTimeout(closeToast, 3500);
 }
 
-// 9. Interactive Event Listeners & Custom Toast Triggers
+// 13. Interactive Event Listeners & Custom Toast Triggers
 const openConciergeBtn = document.getElementById('open-concierge');
 const heroBookBtn = document.getElementById('hero-book-btn');
 const closeConciergeBtn = document.getElementById('close-concierge');
@@ -434,7 +587,7 @@ if (newsletterForm) {
   });
 }
 
-// Render Loop (Automatic continuous left-to-right turntable rotation & passive mouse parallax)
+// 14. Render Loop (Automatic continuous left-to-right turntable rotation & passive mouse parallax)
 let mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0;
 
 window.addEventListener('mousemove', (e) => {

@@ -39,6 +39,61 @@ body {
   overflow-x: hidden;
 }
 
+/* Floating Ambient Gold Dust Canvas */
+#ambient-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Custom Luxury Follower Cursor */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--accent-rose-dark);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, background 0.3s ease;
+}
+
+.cursor-circle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(196, 139, 120, 0.45);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease;
+  background: rgba(196, 139, 120, 0.04);
+  backdrop-filter: blur(1px);
+}
+
+.cursor-circle.active {
+  transform: translate(-50%, -50%) scale(1.6);
+  border-color: var(--accent-rose-dark);
+  background: rgba(196, 139, 120, 0.12);
+}
+
+/* Dynamic 3D Card Tilt Effect */
+.tilt-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
 /* Light Delicate Text Accent */
 .italic-light {
   font-family: var(--font-serif);
@@ -454,7 +509,7 @@ body {
   padding: 0 1rem;
 }
 
-/* Minimalist Ultra-Classy Luxury Product Reveal Card (Responsive Reserved Top Space for 3D Ring!) */
+/* Minimalist Ultra-Classy Luxury Product Reveal Card */
 .product-reveal-card {
   position: absolute;
   top: 50%;
@@ -745,6 +800,14 @@ body {
   font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 400;
   color: var(--accent-rose-dark);
+  display: inline-block;
+}
+
+.stat-plus {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: var(--accent-rose-dark);
+  margin-left: 2px;
 }
 
 .h-stat-label {
@@ -1533,6 +1596,9 @@ body {
   }
   .sleek-drawer {
     padding: 3.5rem 1.8rem;
+  }
+  .cursor-dot, .cursor-circle {
+    display: none;
   }
 }
 
