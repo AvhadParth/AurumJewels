@@ -1,0 +1,20 @@
+{
+  "name": "3d-coin-scroll-demo",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.9",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1",
+    "vite": "^6.0.0"
+  }
+}
