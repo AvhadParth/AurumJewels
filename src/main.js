@@ -94,18 +94,18 @@ envScene.add(envLight2);
 const envMap = pmremGenerator.fromScene(envScene).texture;
 scene.environment = envMap;
 
-// 5. Responsive Scale Logic (Increased Ring Size by ~20%)
+// 5. Responsive Scale Logic
 function getResponsiveScale() {
   const w = window.innerWidth;
-  if (w < 480) return 0.88;
-  if (w < 768) return 1.05;
-  if (w < 1024) return 1.28;
-  return 1.48;
+  if (w < 480) return 0.85;
+  if (w < 768) return 1.02;
+  if (w < 1024) return 1.25;
+  return 1.42;
 }
 
-// Helper to get exact top Y coordinate right below navbar
+// Helper to get exact top Y coordinate safely below the 80px navbar
 function getTopStartY() {
-  return window.innerWidth < 768 ? 1.9 : 2.4;
+  return window.innerWidth < 768 ? 1.2 : 1.45;
 }
 
 // Load User's Custom ring.glb 3D Model with Perfect Pivot Alignment
@@ -150,7 +150,7 @@ loader.load(
     const targetScale = getResponsiveScale() / maxDim;
     model.scale.set(targetScale, targetScale, targetScale);
 
-    // Initial 3D ring position (Starts perfectly visible at top of section right under navbar)
+    // Initial 3D ring position (Starts 100% visible below navbar)
     const initialY = getTopStartY();
     model.rotation.x = 0.3;
 
@@ -277,7 +277,7 @@ function setupScrollAnimations() {
   const productPanel = document.getElementById('product-reveal-panel');
 
   const startY = getTopStartY();
-  const targetY = window.innerWidth < 768 ? 1.25 : 1.42;
+  const targetY = window.innerWidth < 768 ? 1.15 : 1.35;
 
   ringGroup.position.set(0, startY, 0);
   ringGroup.rotation.set(0.3, 0, 0);
