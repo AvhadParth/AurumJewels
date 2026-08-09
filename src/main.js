@@ -261,7 +261,7 @@ function updateRingMetalAndCard() {
   if (buyBtnEl) buyBtnEl.textContent = `ACQUIRE NOW — ${formattedPrice}`;
 }
 
-// 7. GSAP ScrollTriggers: Synchronized Dual-Axis Rotation
+// 7. GSAP ScrollTriggers: Consecutive 1:1 Linear Scroll Motion
 function setupScrollAnimations() {
   const mainTL = gsap.timeline({
     scrollTrigger: {
@@ -270,7 +270,7 @@ function setupScrollAnimations() {
       end: 'bottom bottom',
       pin: '.canvas-wrapper',
       pinSpacing: false,
-      scrub: 0.2,
+      scrub: 0.1, // Ultra-responsive 1:1 tracking
     }
   });
 
@@ -282,19 +282,23 @@ function setupScrollAnimations() {
   ringGroup.position.set(0, startY, 0);
   ringGroup.rotation.set(0.3, 0, 0);
 
+  // Consecutive 1:1 linear translation & rotation along user scroll
   mainTL
-    .fromTo(ringGroup.position, { y: startY }, { y: 0, ease: 'none', duration: 0.75 }, 0)
-    .to(ringGroup.rotation, { y: Math.PI * 4, ease: 'none', duration: 0.75 }, 0)
-    .to(ringGroup.rotation, { x: Math.PI * 2 + 0.3, ease: 'none', duration: 0.75 }, 0)
-    
-    .to(ringGroup.position, { y: targetY, ease: 'power2.out', duration: 0.25 }, 0.75)
-    .to(ringGroup.rotation, { x: 0.3, y: Math.PI * 4, ease: 'power2.out', duration: 0.25 }, 0.75)
-    
+    .fromTo(ringGroup.position, 
+      { y: startY }, 
+      { y: targetY, ease: 'none', duration: 1 }, 
+      0
+    )
+    .fromTo(ringGroup.rotation, 
+      { x: 0.3, y: 0 }, 
+      { x: Math.PI * 2 + 0.3, y: Math.PI * 6, ease: 'none', duration: 1 }, 
+      0
+    )
     .to(productPanel, { 
       opacity: 1, 
       scale: 1, 
       pointerEvents: 'auto', 
-      ease: 'power2.out', 
+      ease: 'power1.out', 
       duration: 0.25,
       onStart: () => productPanel.classList.add('active'),
       onReverseComplete: () => productPanel.classList.remove('active')
@@ -312,7 +316,7 @@ function setupScrollAnimations() {
         trigger: line,
         start: 'top 82%',
         end: 'bottom 18%',
-        scrub: 0.2,
+        scrub: 0.1,
       }
     });
 
