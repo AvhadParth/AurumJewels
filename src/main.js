@@ -282,7 +282,7 @@ function setupScrollAnimations() {
   ringGroup.position.set(0, startY, 0);
   ringGroup.rotation.set(0.3, 0, 0);
 
-  // Consecutive 1:1 linear translation & rotation along user scroll
+  // Consecutive 1:1 linear translation along user scroll
   mainTL
     .fromTo(ringGroup.position, 
       { y: startY }, 
@@ -291,7 +291,7 @@ function setupScrollAnimations() {
     )
     .fromTo(ringGroup.rotation, 
       { x: 0.3, y: 0 }, 
-      { x: Math.PI * 2 + 0.3, y: Math.PI * 6, ease: 'none', duration: 1 }, 
+      { x: Math.PI * 2 + 0.3, y: Math.PI * 4, ease: 'none', duration: 1 }, 
       0
     )
     .to(productPanel, { 
@@ -434,7 +434,7 @@ if (newsletterForm) {
   });
 }
 
-// Render Loop (Optimized Passive Mouse Parallax)
+// Render Loop (Automatic continuous left-to-right turntable rotation & passive mouse parallax)
 let mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0;
 
 window.addEventListener('mousemove', (e) => {
@@ -444,6 +444,14 @@ window.addEventListener('mousemove', (e) => {
 
 function animate() {
   requestAnimationFrame(animate);
+
+  // Automatic continuous left-to-right 360° turntable rotation of the 3D ring!
+  if (loadedRingModel) {
+    loadedRingModel.rotation.y += 0.007;
+  }
+  if (fallbackBandMesh) {
+    fallbackBandMesh.rotation.y += 0.007;
+  }
 
   mouseX += (targetMouseX - mouseX) * 0.08;
   mouseY += (targetMouseY - mouseY) * 0.08;
