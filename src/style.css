@@ -1,6 +1,6 @@
 :root {
   --bg-color: #f9f5f0;
-  --bg-card: rgba(253, 250, 246, 0.90);
+  --bg-card: rgba(253, 250, 246, 0.92);
   --text-dark: #241e1b;
   --text-subtle: #7d7068;
   --accent-rose: #c48b78;
@@ -25,15 +25,18 @@ html {
   color: var(--text-dark);
   font-family: var(--font-light);
   overflow-x: hidden;
+  width: 100%;
 }
 
 body {
   min-height: 100vh;
+  width: 100%;
   position: relative;
   background-color: var(--bg-color);
   background-image: 
     radial-gradient(circle at 50% 0%, rgba(243, 225, 218, 0.5) 0%, transparent 60%),
     radial-gradient(circle at 90% 40%, rgba(238, 220, 210, 0.4) 0%, transparent 50%);
+  overflow-x: hidden;
 }
 
 /* Light Delicate Text Accent */
@@ -63,12 +66,13 @@ body {
   padding: 12px 24px;
   border-radius: 30px;
   font-family: var(--font-light);
-  font-size: 0.75rem;
+  font-size: clamp(0.70rem, 1.2vw, 0.78rem);
   font-weight: 400;
   letter-spacing: 0.16em;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   box-shadow: 0 4px 18px var(--accent-rose-glow);
+  white-space: nowrap;
 }
 
 .rose-btn:hover {
@@ -84,19 +88,20 @@ body {
   left: 0;
   width: 100%;
   height: 80px;
-  padding: 0 3.5rem;
+  padding: 0 clamp(1.2rem, 4vw, 3.5rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 100;
   background: rgba(249, 245, 240, 0.88);
   backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border-rose);
 }
 
 .logo {
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
   font-weight: 700;
   letter-spacing: 0.18em;
   color: var(--text-dark);
@@ -106,21 +111,21 @@ body {
   font-family: var(--font-serif);
   font-weight: 300;
   font-style: italic;
-  font-size: 1.05rem;
+  font-size: clamp(0.85rem, 1.5vw, 1.05rem);
   color: var(--accent-rose);
   margin-left: 4px;
 }
 
 .nav-links {
   display: flex;
-  gap: 2.5rem;
+  gap: clamp(1.2rem, 2.5vw, 2.5rem);
 }
 
 .nav-links a {
   color: var(--text-subtle);
   text-decoration: none;
   font-family: var(--font-light);
-  font-size: 0.8rem;
+  font-size: clamp(0.72rem, 1vw, 0.8rem);
   font-weight: 300;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -135,12 +140,12 @@ body {
 .hero-video-section {
   position: relative;
   width: 100%;
-  min-height: 98vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 11rem 2rem 4rem;
+  padding: clamp(6rem, 15vh, 11rem) 1.5rem clamp(3rem, 6vh, 4rem);
   overflow: hidden;
   text-align: center;
 }
@@ -190,7 +195,7 @@ body {
 
 .sub-badge {
   font-family: var(--font-light);
-  font-size: 0.68rem;
+  font-size: clamp(0.60rem, 1vw, 0.68rem);
   font-weight: 400;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -200,10 +205,10 @@ body {
 
 .hero-title {
   font-family: var(--font-serif);
-  font-size: 5.4rem;
+  font-size: clamp(2.4rem, 6.5vw, 5.4rem);
   font-weight: 300;
   letter-spacing: 0.04em;
-  line-height: 1.05;
+  line-height: 1.08;
   margin-bottom: 1.5rem;
   color: var(--text-dark);
   text-transform: uppercase;
@@ -212,7 +217,7 @@ body {
 .hero-subtitle {
   color: var(--text-subtle);
   font-family: var(--font-light);
-  font-size: 1.12rem;
+  font-size: clamp(0.92rem, 1.4vw, 1.12rem);
   font-weight: 300;
   line-height: 1.65;
   max-width: 740px;
@@ -223,7 +228,7 @@ body {
 /* Dual CTAs */
 .hero-cta-group {
   display: flex;
-  gap: 1.4rem;
+  gap: 1.2rem;
   justify-content: center;
   align-items: center;
   margin-bottom: 3.5rem;
@@ -288,7 +293,7 @@ body {
 
 .highlight-title {
   font-family: var(--font-serif);
-  font-size: 1.05rem;
+  font-size: clamp(0.85rem, 1.2vw, 1.05rem);
   font-weight: 500;
   letter-spacing: 0.08em;
   color: var(--text-dark);
@@ -355,7 +360,7 @@ body {
   justify-content: center;
   width: 100%;
   font-family: var(--font-heading);
-  font-size: 11.5vw;
+  font-size: clamp(2.2rem, 9vw, 8.5rem);
   font-weight: 700;
   letter-spacing: -0.015em;
   line-height: 0.98;
@@ -387,15 +392,17 @@ body {
 .poetry-author {
   margin-top: 4rem;
   font-family: var(--font-serif);
-  font-size: 0.9rem;
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
   font-weight: 400;
   font-style: italic;
   letter-spacing: 0.2em;
   color: var(--accent-rose);
   text-transform: uppercase;
+  text-align: center;
+  padding: 0 1rem;
 }
 
-/* Minimalist Ultra-Classy Luxury Product Reveal Card (Generous 240px Top Padding for Zero Overlap!) */
+/* Minimalist Ultra-Classy Luxury Product Reveal Card (Responsive Reserved Top Space for 3D Ring!) */
 .product-reveal-card {
   position: absolute;
   top: 50%;
@@ -404,7 +411,7 @@ body {
   z-index: 5;
   width: 90%;
   max-width: 500px;
-  padding: 240px 2.0rem 1.8rem; /* Reserved generous top space for 3D ring! */
+  padding: clamp(190px, 30vh, 240px) 2.0rem 1.8rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -440,7 +447,7 @@ body {
 
 .reveal-title {
   font-family: var(--font-serif);
-  font-size: 2.2rem;
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
   font-weight: 300;
   letter-spacing: 0.08em;
   color: var(--text-dark);
@@ -470,7 +477,7 @@ body {
 
 .reveal-description {
   font-family: var(--font-light);
-  font-size: 0.82rem;
+  font-size: clamp(0.75rem, 1.1vw, 0.82rem);
   font-weight: 300;
   line-height: 1.55;
   letter-spacing: 0.02em;
@@ -565,7 +572,7 @@ body {
 
 .spec-value {
   font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-size: clamp(0.85rem, 1.2vw, 0.95rem);
   font-weight: 500;
   color: var(--text-dark);
   letter-spacing: 0.03em;
@@ -637,7 +644,7 @@ body {
 
 /* Place Vendôme Atelier Heritage & Craftsmanship Section */
 .heritage-section {
-  padding: 8rem 2rem;
+  padding: clamp(4rem, 10vh, 8rem) 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -645,13 +652,13 @@ body {
 .heritage-container {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 4rem;
+  gap: clamp(2rem, 5vw, 4rem);
   align-items: center;
 }
 
 .heritage-content h2 {
   font-family: var(--font-serif);
-  font-size: 3.2rem;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
   font-weight: 300;
   letter-spacing: 0.06em;
   margin-bottom: 1.2rem;
@@ -660,7 +667,7 @@ body {
 
 .heritage-body {
   font-family: var(--font-light);
-  font-size: 1.02rem;
+  font-size: clamp(0.90rem, 1.3vw, 1.02rem);
   font-weight: 300;
   line-height: 1.7;
   color: var(--text-subtle);
@@ -683,7 +690,7 @@ body {
 
 .h-stat-number {
   font-family: var(--font-serif);
-  font-size: 2.4rem;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 400;
   color: var(--accent-rose-dark);
 }
@@ -698,7 +705,7 @@ body {
 
 .heritage-card {
   position: relative;
-  height: 480px;
+  height: clamp(340px, 45vh, 480px);
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid var(--border-rose);
@@ -745,7 +752,7 @@ body {
 
 /* Collections Grid Section */
 .collections-section {
-  padding: 7rem 2rem;
+  padding: clamp(4rem, 8vh, 7rem) 2rem;
   max-width: 1250px;
   margin: 0 auto;
 }
@@ -757,7 +764,7 @@ body {
 
 .section-header h2 {
   font-family: var(--font-serif);
-  font-size: 2.8rem;
+  font-size: clamp(2.2rem, 3.5vw, 2.8rem);
   font-weight: 300;
   letter-spacing: 0.08em;
   color: var(--text-dark);
@@ -773,7 +780,7 @@ body {
 
 .collections-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2.2rem;
 }
 
@@ -873,14 +880,14 @@ body {
 
 /* Vogue & Press Testimonials Section */
 .testimonials-section {
-  padding: 6rem 2rem 8rem;
+  padding: clamp(4rem, 8vh, 6rem) 2rem clamp(4rem, 8vh, 8rem);
   max-width: 1250px;
   margin: 0 auto;
 }
 
 .testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
 }
 
@@ -940,6 +947,7 @@ body {
   height: 100%;
   background: rgba(36, 30, 27, 0.45);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: 200;
   display: flex;
   justify-content: flex-end;
@@ -1380,10 +1388,10 @@ body {
   color: var(--text-dark);
 }
 
-/* Responsive adjustments */
+/* Detailed Responsive Breakpoints (Mobile, Tablet, Laptop, Ultra-Wide Desktop) */
 @media (max-width: 1024px) {
   .hero-title {
-    font-size: 3.8rem;
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
   }
   .hero-highlights-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1394,7 +1402,7 @@ body {
     gap: 2.5rem;
   }
   .testimonials-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
   .footer-main {
     grid-template-columns: repeat(2, 1fr);
@@ -1406,40 +1414,44 @@ body {
 
 @media (max-width: 768px) {
   .hero-video-section {
-    padding: 8rem 1.5rem 3rem;
+    padding: 7rem 1.2rem 3rem;
   }
   .hero-title {
-    font-size: 2.8rem;
+    font-size: clamp(2.2rem, 7.5vw, 3.2rem);
   }
   .hero-subtitle {
-    font-size: 0.98rem;
+    font-size: 0.95rem;
   }
   .hero-highlights-grid {
     grid-template-columns: 1fr;
     padding: 1.2rem;
   }
   .poetry-line {
-    font-size: 10.5vw;
-    margin-bottom: 1.5rem;
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
+    margin-bottom: 1.2rem;
   }
   .poetry-wrapper {
-    padding-top: 15vh;
+    padding-top: 12vh;
   }
   .product-reveal-card {
-    padding: 210px 1.2rem 1.4rem;
-    top: 50%;
+    padding: 190px 1.2rem 1.4rem;
+    width: 94%;
+  }
+  .reveal-title {
+    font-size: 1.7rem;
   }
   .reveal-specs {
     grid-template-columns: repeat(3, 1fr);
   }
   .navbar {
-    padding: 0 1.5rem;
+    padding: 0 1.2rem;
+    height: 68px;
   }
   .nav-links {
     display: none;
   }
   .luxury-footer {
-    padding: 3.5rem 1.5rem 2rem;
+    padding: 3.5rem 1.2rem 2rem;
   }
   .footer-newsletter {
     flex-direction: column;
@@ -1466,5 +1478,24 @@ body {
     right: 5%;
     width: 90%;
     bottom: 1rem;
+  }
+  .sleek-drawer {
+    padding: 3.5rem 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-primary-btn, .hero-secondary-btn {
+    width: 100%;
+  }
+  .reveal-actions {
+    flex-direction: column;
+  }
+  .cart-btn, .buy-btn {
+    width: 100%;
   }
 }

@@ -6,12 +6,12 @@ import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// 1. Optimized Lenis Smooth Scroll (0.8s duration for snappy 60fps response)
+// 1. Ultra-Snappy Smooth Scroll (0.7s duration for 60fps response across mobile & desktop)
 const lenis = new Lenis({
-  duration: 0.8,
+  duration: 0.7,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   smoothWheel: true,
-  touchMultiplier: 1.5,
+  touchMultiplier: 1.2,
 });
 
 lenis.on('scroll', ScrollTrigger.update);
@@ -21,7 +21,7 @@ gsap.ticker.add((time) => {
 });
 gsap.ticker.lagSmoothing(0);
 
-// 2. High-Performance Three.js Scene Setup
+// 2. High-Performance Three.js WebGL Scene Setup
 const canvas = document.getElementById('coin-canvas');
 
 const scene = new THREE.Scene();
@@ -35,7 +35,9 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.set(0, 0, 7.5);
 
-// Renderer setup (Optimized 1.25 pixel ratio cap for ultra-smooth 60fps execution)
+// Adaptive Pixel Ratio Cap (1.15 on mobile, 1.4 on desktop to guarantee zero GPU stutter)
+const getAdaptivePixelRatio = () => Math.min(window.devicePixelRatio, window.innerWidth < 768 ? 1.15 : 1.4);
+
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
   alpha: true,
@@ -43,11 +45,11 @@ const renderer = new THREE.WebGLRenderer({
   powerPreference: 'high-performance',
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
+renderer.setPixelRatio(getAdaptivePixelRatio());
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.6;
 
-// Freeze shadow map updates after initial render to avoid per-frame shadow map recalculation lag!
+// Freeze shadow map updates after initial load to avoid per-frame shadow map recalculation lag!
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.shadowMap.autoUpdate = false;
@@ -92,7 +94,16 @@ envScene.add(envLight2);
 const envMap = pmremGenerator.fromScene(envScene).texture;
 scene.environment = envMap;
 
-// 5. Load User's Custom ring.glb 3D Model with Perfect Pivot Alignment
+// 5. Responsive Scale Logic for Mobile, Tablet, Laptop & Desktop
+function getResponsiveScale() {
+  const w = window.innerWidth;
+  if (w < 480) return 0.72;
+  if (w < 768) return 0.88;
+  if (w < 1024) return 1.08;
+  return 1.25;
+}
+
+// Load User's Custom ring.glb 3D Model with Perfect Pivot Alignment
 let ringGroup = new THREE.Group();
 scene.add(ringGroup);
 
@@ -134,7 +145,7 @@ loader.load(
     const targetScale = getResponsiveScale() / maxDim;
     model.scale.set(targetScale, targetScale, targetScale);
 
-    // Initial 3D ring position (Top of canvas with initial tilt)
+    // Initial 3D ring position
     model.rotation.x = 0.3;
 
     ringGroup.add(model);
@@ -154,10 +165,6 @@ loader.load(
     createFallbackRing();
   }
 );
-
-function getResponsiveScale() {
-  return window.innerWidth < 768 ? 0.95 : 1.25;
-}
 
 let fallbackBandMesh = null;
 
@@ -224,7 +231,7 @@ function updateRingMetalAndCard() {
         r: new THREE.Color(metal.color).r,
         g: new THREE.Color(metal.color).g,
         b: new THREE.Color(metal.color).b,
-        duration: 0.5
+        duration: 0.4
       });
     }
   });
@@ -247,7 +254,7 @@ function updateRingMetalAndCard() {
   if (buyBtnEl) buyBtnEl.textContent = `ACQUIRE NOW — ${formattedPrice}`;
 }
 
-// 7. GSAP ScrollTriggers: Synchronized Dual-Axis Rotation (Elevates 3D Ring to y=1.30 Above Text)
+// 7. GSAP ScrollTriggers: Synchronized Dual-Axis Rotation
 function setupScrollAnimations() {
   const mainTL = gsap.timeline({
     scrollTrigger: {
@@ -256,7 +263,7 @@ function setupScrollAnimations() {
       end: 'bottom bottom',
       pin: '.canvas-wrapper',
       pinSpacing: false,
-      scrub: 0.3,
+      scrub: 0.2,
     }
   });
 
@@ -265,13 +272,14 @@ function setupScrollAnimations() {
   ringGroup.position.set(0, 0.6, 0);
   ringGroup.rotation.set(0.3, 0, 0);
 
+  const targetY = window.innerWidth < 768 ? 1.15 : 1.30;
+
   mainTL
     .fromTo(ringGroup.position, { y: 0.6 }, { y: 0, ease: 'none', duration: 0.75 }, 0)
     .to(ringGroup.rotation, { y: Math.PI * 4, ease: 'none', duration: 0.75 }, 0)
     .to(ringGroup.rotation, { x: Math.PI * 2 + 0.3, ease: 'none', duration: 0.75 }, 0)
     
-    // Elevate 3D Ring to y = 1.30 facing user upright comfortably ABOVE the badge text!
-    .to(ringGroup.position, { y: 1.30, ease: 'power2.out', duration: 0.25 }, 0.75)
+    .to(ringGroup.position, { y: targetY, ease: 'power2.out', duration: 0.25 }, 0.75)
     .to(ringGroup.rotation, { x: 0.3, y: Math.PI * 4, ease: 'power2.out', duration: 0.25 }, 0.75)
     
     .to(productPanel, { 
@@ -284,7 +292,7 @@ function setupScrollAnimations() {
       onReverseComplete: () => productPanel.classList.remove('active')
     }, 0.75);
 
-  const getGapWidth = () => Math.min(window.innerWidth * 0.40, 500);
+  const getGapWidth = () => Math.min(window.innerWidth * 0.35, 450);
 
   const lines = document.querySelectorAll('.poetry-line');
   lines.forEach((line) => {
@@ -306,7 +314,7 @@ function setupScrollAnimations() {
   });
 }
 
-// 8. Custom Breathtaking Glassmorphism Maison Toast Notification System
+// 8. Custom Glassmorphism Maison Toast Notification System
 function showMaisonToast(badge, title, message, icon = '❖') {
   const container = document.getElementById('maison-toast-container');
   if (!container) return;
@@ -327,7 +335,6 @@ function showMaisonToast(badge, title, message, icon = '❖') {
 
   container.appendChild(toast);
 
-  // Trigger reflow to start transition
   requestAnimationFrame(() => {
     toast.classList.add('active');
     const bar = toast.querySelector('.toast-progress-bar');
@@ -415,14 +422,13 @@ if (newsletterForm) {
   });
 }
 
-// Render Loop
-let clock = new THREE.Clock();
+// Render Loop (Optimized Passive Mouse Parallax)
 let mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0;
 
 window.addEventListener('mousemove', (e) => {
-  targetMouseX = (e.clientX / window.innerWidth - 0.5) * 0.2;
-  targetMouseY = (e.clientY / window.innerHeight - 0.5) * 0.2;
-});
+  targetMouseX = (e.clientX / window.innerWidth - 0.5) * 0.15;
+  targetMouseY = (e.clientY / window.innerHeight - 0.5) * 0.15;
+}, { passive: true });
 
 function animate() {
   requestAnimationFrame(animate);
@@ -439,18 +445,24 @@ function animate() {
 }
 animate();
 
-// Window Resize Handler
+// Optimized Window Resize Handler
+let resizeTimeout;
 window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
 
-  if (loadedRingModel) {
-    const box = new THREE.Box3().setFromObject(loadedRingModel);
-    const size = box.getSize(new THREE.Vector3());
-    const maxDim = Math.max(size.x, size.y, size.z);
-    const targetScale = getResponsiveScale() / maxDim;
-    loadedRingModel.scale.set(targetScale, targetScale, targetScale);
-  }
-  ScrollTrigger.refresh();
+    renderer.setPixelRatio(getAdaptivePixelRatio());
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    if (loadedRingModel) {
+      const box = new THREE.Box3().setFromObject(loadedRingModel);
+      const size = box.getSize(new THREE.Vector3());
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const targetScale = getResponsiveScale() / maxDim;
+      loadedRingModel.scale.set(targetScale, targetScale, targetScale);
+    }
+    ScrollTrigger.refresh();
+  }, 100);
 });
