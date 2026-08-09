@@ -145,11 +145,12 @@ loader.load(
     const targetScale = getResponsiveScale() / maxDim;
     model.scale.set(targetScale, targetScale, targetScale);
 
-    // Initial 3D ring position
+    // Initial 3D ring position (Starts high at top of section)
+    const initialY = window.innerWidth < 768 ? 2.6 : 3.2;
     model.rotation.x = 0.3;
 
     ringGroup.add(model);
-    ringGroup.position.set(0, 0.6, 0);
+    ringGroup.position.set(0, initialY, 0);
     ringGroup.rotation.set(0.3, 0, 0);
 
     // Freeze static shadow maps once after load
@@ -191,7 +192,8 @@ function createFallbackRing() {
   ringGroup.add(fallbackGem);
   ringMaterials.push(bandMat);
 
-  ringGroup.position.set(0, 0.6, 0);
+  const initialY = window.innerWidth < 768 ? 2.6 : 3.2;
+  ringGroup.position.set(0, initialY, 0);
   ringGroup.rotation.set(0.3, 0, 0);
   renderer.shadowMap.needsUpdate = true;
   setupScrollAnimations();
@@ -269,13 +271,14 @@ function setupScrollAnimations() {
 
   const productPanel = document.getElementById('product-reveal-panel');
 
-  ringGroup.position.set(0, 0.6, 0);
-  ringGroup.rotation.set(0.3, 0, 0);
-
+  const startY = window.innerWidth < 768 ? 2.6 : 3.2;
   const targetY = window.innerWidth < 768 ? 1.25 : 1.42;
 
+  ringGroup.position.set(0, startY, 0);
+  ringGroup.rotation.set(0.3, 0, 0);
+
   mainTL
-    .fromTo(ringGroup.position, { y: 0.6 }, { y: 0, ease: 'none', duration: 0.75 }, 0)
+    .fromTo(ringGroup.position, { y: startY }, { y: 0, ease: 'none', duration: 0.75 }, 0)
     .to(ringGroup.rotation, { y: Math.PI * 4, ease: 'none', duration: 0.75 }, 0)
     .to(ringGroup.rotation, { x: Math.PI * 2 + 0.3, ease: 'none', duration: 0.75 }, 0)
     
